@@ -1,6 +1,14 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Child Records</ion-title>
+    <ion-title>
+      <div class="header-content">
+        <ion-icon name="list-outline"></ion-icon>
+        <span>Student Records</span>
+      </div>
+    </ion-title>
+    <ion-button slot="end" fill="clear" (click)="navigateToSchoolSelection()" class="change-school-btn">
+      <ion-icon slot="icon-only" name="swap-horizontal-outline"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -19,10 +27,30 @@
     <!-- Stats Card -->
     <ion-card class="stats-card">
       <ion-card-header>
-        <ion-card-title>Student Records</ion-card-title>
-        <ion-card-subtitle>
-          {{ filteredChildren.length }} of {{ totalChildren }} students
-        </ion-card-subtitle>
+        <div class="stats-content">
+          <div class="stats-info">
+            <ion-card-title>Student Records</ion-card-title>
+            <ion-card-subtitle>
+              @if (serviceProviderId && schoolId) {
+                <span class="count">{{ filteredChildren.length }}</span> students found
+              } @else {
+                <span class="count">{{ filteredChildren.length }}</span> of {{ totalChildren }} students
+              }
+            </ion-card-subtitle>
+          </div>
+          @if (serviceProviderId && schoolId) {
+            <div class="context-badge">
+              <div class="badge-item">
+                <span class="label">Provider</span>
+                <span class="value">{{ serviceProviderId }}</span>
+              </div>
+              <div class="badge-item">
+                <span class="label">School</span>
+                <span class="value">{{ schoolId }}</span>
+              </div>
+            </div>
+          }
+        </div>
       </ion-card-header>
     </ion-card>
 
@@ -73,11 +101,15 @@
       </div>
     }
 
-    @if (!isLoading && children.length === 0) {
+    @if (!isLoading && children.length === 0 && !searchTerm) {
       <div class="empty-state">
-        <ion-icon name="person-circle-outline"></ion-icon>
-        <h3>No student records</h3>
-        <p>No records available at the moment</p>
+        <ion-icon name="school-outline"></ion-icon>
+        <h3>No children found for this school</h3>
+        <p>There are no student records for the selected service provider and school.</p>
+        <ion-button (click)="navigateToSchoolSelection()" color="primary" class="change-school-btn">
+          <ion-icon slot="start" name="swap-horizontal-outline"></ion-icon>
+          Change School
+        </ion-button>
       </div>
     }
   </div>

@@ -24,9 +24,12 @@ import {
   listOutline, 
   personCircleOutline,
   searchOutline,
-  chevronForwardOutline
+  chevronForwardOutline,
+  schoolOutline,
+  swapHorizontalOutline
 } from 'ionicons/icons';
 import { ChildService, Child } from '../../services/child.service';
+import { SchoolContextService } from '../../services/school-context.service';
 
 @Component({
   selector: 'app-home',
@@ -44,7 +47,7 @@ import { ChildService, Child } from '../../services/child.service';
     IonCardHeader, 
     IonCardTitle, 
     IonCardSubtitle, 
-    IonButton, 
+    IonButton,
     IonIcon,
     IonSearchbar,
     IonSpinner,
@@ -58,23 +61,40 @@ export class HomePage implements OnInit {
   isLoading = false;
   searchTerm = '';
   totalChildren = 0;
+  serviceProviderId: number | null = null;
+  schoolId: number | null = null;
 
   constructor(
     private router: Router,
     private childService: ChildService,
     private toastController: ToastController,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private schoolContextService: SchoolContextService
   ) {
     addIcons({ 
       listOutline, 
       personCircleOutline,
       searchOutline,
-      chevronForwardOutline
+      chevronForwardOutline,
+      schoolOutline,
+      swapHorizontalOutline
     });
   }
 
   ngOnInit() {
+    // Initial setup only
+  }
+
+  ionViewWillEnter() {
+    // This runs every time the page becomes active
+    this.checkSchoolContext();
     this.loadChildren();
+  }
+
+  checkSchoolContext() {
+    if (!this.schoolContextService.hasContext()) {
+      this.router.navigate(['/school-selection']);
+    }
   }
 
   async loadChildren(event?: any) {
@@ -83,7 +103,29 @@ export class HomePage implements OnInit {
       this.cdr.detectChanges();
     }
 
-    this.childService.getChildren({ limit: 10 }).subscribe({
+    // Get school context
+    const context = this.schoolContextService.getContext();
+    if (!context) {
+      this.isLoading = false;
+      this.cdr.detectChanges();
+      if (event) {
+        event.target.complete();
+      }
+      await this.presentToast('School context not found. Please select a school.', 'warning');
+      this.router.navigate(['/school-selection']);
+      return;
+    }
+
+    // Store context for display
+    this.serviceProviderId = context.serviceProviderId;
+    this.schoolId = context.schoolId;
+
+    // Use getChildrenBySchool with context
+    this.childService.getChildrenBySchool(
+      context.serviceProviderId,
+      context.schoolId,
+      { limit: 10 }
+    ).subscribe({
       next: (response) => {
         this.children = response.children;
         this.filteredChildren = response.children;
@@ -155,6 +197,12 @@ export class HomePage implements OnInit {
 
   navigateToChild(child: Child) {
     this.router.navigate(['/camera-capture', child.id]);
+  }
+
+  navigateToSchoolSelection() {
+    this.router.navigate(['/school-selection'], { 
+      state: { allowEdit: true } 
+    });
   }
 
   async presentToast(message: string, color: string) {

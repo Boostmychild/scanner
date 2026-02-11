@@ -1,0 +1,58 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>School Selection</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="form-container">
+    <div class="welcome-section">
+      <div class="icon-wrapper">
+        <ion-icon name="school-outline"></ion-icon>
+      </div>
+      <h1>Select Your School</h1>
+      <p class="subtitle">Enter your credentials to access student records</p>
+    </div>
+
+    <ion-card>
+      <div class="card-content">
+        <div class="input-group">
+          <label>Service Provider ID</label>
+          <ion-input
+            type="text"
+            [(ngModel)]="serviceProviderId"
+            (ionInput)="onInputChange()"
+            placeholder="e.g., 139"
+          ></ion-input>
+          <span class="helper-text">Your organization's unique identifier</span>
+        </div>
+
+        <div class="input-group">
+          <label>School ID</label>
+          <ion-input
+            type="text"
+            [(ngModel)]="schoolId"
+            (ionInput)="onInputChange()"
+            placeholder="e.g., 33"
+          ></ion-input>
+          <span class="helper-text">The specific school you want to access</span>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          {{ errorMessage }}
+        </div>
+
+        <ion-button
+          expand="block"
+          (click)="onSubmit()"
+          [disabled]="!validateInputs() || isSubmitting"
+          class="submit-btn"
+        >
+          <span *ngIf="!isSubmitting">Access Student Records</span>
+          <ion-spinner *ngIf="isSubmitting" name="crescent"></ion-spinner>
+        </ion-button>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

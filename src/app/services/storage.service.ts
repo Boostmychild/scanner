@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { MediaItem } from '../models/child-record.interface';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { MediaItem } from "../models/child-record.interface";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class StorageService {
   private capturedMedia: MediaItem[] = [];
@@ -32,7 +32,7 @@ export class StorageService {
   }
 
   setMediaForRecord(recordId: string): void {
-    this.capturedMedia.forEach(media => {
+    this.capturedMedia.forEach((media) => {
       media.recordId = recordId;
     });
   }

@@ -20,7 +20,9 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -29,7 +31,12 @@ body {
 // TYPOGRAPHY
 // ============================================
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   font-weight: 700;
   letter-spacing: 0.3px;
@@ -53,7 +60,7 @@ ion-card {
   border: 2px solid #000000;
   background: #ffffff;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
@@ -96,47 +103,47 @@ ion-button {
   letter-spacing: 0.5px;
   margin: 0;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   &[fill="solid"] {
     --background: #000000;
     --background-hover: #1a1a1a;
     --background-activated: #333333;
     --color: #ffffff;
     --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    
+
     &:hover {
       --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       transform: translateY(-2px);
     }
   }
-  
+
   &[fill="outline"] {
     --border-width: 2px;
     --border-color: #000000;
     --color: #000000;
     --background-hover: #f5f5f5;
     --background-activated: #e0e0e0;
-    
+
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
   }
-  
+
   &[fill="clear"] {
     --color: #000000;
     --background-hover: #f5f5f5;
   }
-  
+
   &:active {
     transform: translateY(0);
   }
-  
+
   &[disabled] {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  
+
   ion-icon {
     font-size: 1.2em;
   }
@@ -155,13 +162,13 @@ ion-item {
   margin-bottom: 12px;
   border-radius: 8px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   &:hover {
     --background: #f5f5f5;
     transform: translateX(4px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
-  
+
   &:last-child {
     margin-bottom: 0;
   }
@@ -209,18 +216,18 @@ ion-toolbar {
   --padding-top: 8px;
   --padding-bottom: 8px;
   --min-height: 56px;
-  
+
   ion-title {
     font-weight: 700;
     font-size: 1.2em;
     letter-spacing: 0.5px;
     color: #ffffff;
   }
-  
+
   ion-button {
     --color: #ffffff;
   }
-  
+
   ion-back-button {
     --color: #ffffff;
   }
@@ -286,20 +293,44 @@ ion-icon {
   letter-spacing: 0.5px;
 }
 
-.mt-8 { margin-top: 8px; }
-.mt-16 { margin-top: 16px; }
-.mt-24 { margin-top: 24px; }
-.mt-32 { margin-top: 32px; }
+.mt-8 {
+  margin-top: 8px;
+}
+.mt-16 {
+  margin-top: 16px;
+}
+.mt-24 {
+  margin-top: 24px;
+}
+.mt-32 {
+  margin-top: 32px;
+}
 
-.mb-8 { margin-bottom: 8px; }
-.mb-16 { margin-bottom: 16px; }
-.mb-24 { margin-bottom: 24px; }
-.mb-32 { margin-bottom: 32px; }
+.mb-8 {
+  margin-bottom: 8px;
+}
+.mb-16 {
+  margin-bottom: 16px;
+}
+.mb-24 {
+  margin-bottom: 24px;
+}
+.mb-32 {
+  margin-bottom: 32px;
+}
 
-.p-8 { padding: 8px; }
-.p-16 { padding: 16px; }
-.p-20 { padding: 20px; }
-.p-24 { padding: 24px; }
+.p-8 {
+  padding: 8px;
+}
+.p-16 {
+  padding: 16px;
+}
+.p-20 {
+  padding: 20px;
+}
+.p-24 {
+  padding: 24px;
+}
 
 // ============================================
 // ANIMATIONS
@@ -328,7 +359,8 @@ ion-icon {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
@@ -354,7 +386,7 @@ ion-icon {
   ion-card {
     margin: 20px;
   }
-  
+
   ion-button {
     height: 56px;
     font-size: 1.05em;
@@ -399,4 +431,3 @@ ion-icon {
     display: none;
   }
 }
-

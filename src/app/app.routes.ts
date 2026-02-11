@@ -1,22 +1,33 @@
-import { Routes } from '@angular/router';
+import { Routes } from "@angular/router";
 
 export const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    path: "",
+    redirectTo: "school-selection",
+    pathMatch: "full",
   },
   {
-    path: 'home',
-    loadComponent: () => import('./pages/home/home.page').then(m => m.HomePage),
+    path: "school-selection",
+    loadComponent: () =>
+      import("./pages/school-selection/school-selection.page").then(
+        (m) => m.SchoolSelectionPage,
+      ),
   },
   {
-    path: 'camera-capture/:id',
-    loadComponent: () => import('./pages/camera-capture/camera-capture.page').then(m => m.CameraCapturePage),
+    path: "home",
+    loadComponent: () =>
+      import("./pages/home/home.page").then((m) => m.HomePage),
   },
   {
-    path: '**',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    path: "camera-capture/:id",
+    loadComponent: () =>
+      import("./pages/camera-capture/camera-capture.page").then(
+        (m) => m.CameraCapturePage,
+      ),
+  },
+  {
+    path: "**",
+    redirectTo: "school-selection",
+    pathMatch: "full",
   },
 ];
