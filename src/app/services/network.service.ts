@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class NetworkService {
   private isOnlineSubject = new BehaviorSubject<boolean>(navigator.onLine);
@@ -10,11 +10,11 @@ export class NetworkService {
 
   constructor() {
     // Listen for online/offline events
-    window.addEventListener('online', () => {
+    window.addEventListener("online", () => {
       this.isOnlineSubject.next(true);
     });
 
-    window.addEventListener('offline', () => {
+    window.addEventListener("offline", () => {
       this.isOnlineSubject.next(false);
     });
   }
@@ -29,7 +29,7 @@ export class NetworkService {
   async retryWithBackoff<T>(
     fn: () => Promise<T>,
     maxRetries: number = 3,
-    baseDelay: number = 1000
+    baseDelay: number = 1000,
   ): Promise<T> {
     let lastError: any;
 
@@ -38,7 +38,7 @@ export class NetworkService {
         return await fn();
       } catch (error) {
         lastError = error;
-        
+
         if (attempt === maxRetries) {
           break;
         }
@@ -59,9 +59,9 @@ export class NetworkService {
     return (
       !this.isOnline ||
       error.status === 0 ||
-      error.code === 'NETWORK_ERROR' ||
-      error.message?.includes('Network Error') ||
-      error.name === 'NetworkError'
+      error.code === "NETWORK_ERROR" ||
+      error.message?.includes("Network Error") ||
+      error.name === "NetworkError"
     );
   }
 
@@ -84,33 +84,33 @@ export class NetworkService {
    */
   getErrorMessage(error: any): string {
     if (!this.isOnline) {
-      return 'No internet connection. Please check your network.';
+      return "No internet connection. Please check your network.";
     }
 
     if (this.isNetworkError(error)) {
-      return 'Network error. Please check your connection.';
+      return "Network error. Please check your connection.";
     }
 
     if (this.isServerError(error)) {
-      return 'Server error. Please try again later.';
+      return "Server error. Please try again later.";
     }
 
     if (error.status === 404) {
-      return 'Service not found. Please contact support.';
+      return "Service not found. Please contact support.";
     }
 
     if (error.status === 401 || error.status === 403) {
-      return 'Authentication error. Please restart the app.';
+      return "Authentication error. Please restart the app.";
     }
 
     if (error.status === 429) {
-      return 'Too many requests. Please wait a moment.';
+      return "Too many requests. Please wait a moment.";
     }
 
-    return error.message || 'An unexpected error occurred.';
+    return error.message || "An unexpected error occurred.";
   }
 
   private delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
